@@ -63,8 +63,8 @@ hls.attachMedia(document.getElementById(VIDEO_ELEMENT_ID));
 ```javascript
 const smDaiManager = new SmDaiManager();
 smDaiManager.setManifestUrl(MANIFEST_URL);
-smDaiManager.setAdsServerUrl(ADS_SERVER_URL); // set URL of the ads server
-smDaiManager.setAdsParams(ADS_PARAMS); // append query params
+smDaiManager.setAdsEndpoint(ADS_ENDPOINT); // set endpoint of the ads
+smDaiManager.setAdsParams(ADS_PARAMS); // append query params for ads request
 ```
 
 - **Attach hls instance into SSAI SDK instance** :
@@ -97,12 +97,12 @@ smDaiManager.destroy();
 
 ### NOTE: Please replace the following placeholders in the code:
 
-| Props            | Type   | Description                                                                                   |
-| ---------------- | ------ | --------------------------------------------------------------------------------------------- |
-| MANIFEST_URL     | String | The URL to the HLS Multivariant Playlist (M3U8) file.                                         |
-| VIDEO_ELEMENT_ID | String | The ID of the HTML5 video element where the video stream will be displayed.                   |
-| ADS_SERVER_URL   | String | The URL of the ads server                                                                     |
-| ADS_PARAMS       | Object | An object containing key-value pairs to be added as query parameters for the `ADS_SERVER_URL` |
+| Props            | Type   | Description                                                                                 |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------- |
+| MANIFEST_URL     | String | The URL to the HLS Multivariant Playlist (M3U8) file.                                       |
+| VIDEO_ELEMENT_ID | String | The ID of the HTML5 video element where the video stream will be displayed.                 |
+| ADS_ENDPOINT     | String | The end point of the ads                                                                    |
+| ADS_PARAMS       | Object | An object containing key-value pairs to be added as query parameters for the ads server url |
 
 ## 6. Conclusion
 

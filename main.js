@@ -6,8 +6,8 @@ var smDaiManager;
 var hls;
 
 var manifestUrl = MANIFEST_URL;
-var adsServerUrl = ADS_SERVER_URL;
-var adsParams = ADS_PARAMS
+var adsEndpoint = ADS_ENDPOINT;
+var adsParams = ADS_PARAMS;
 
 async function stop() {
   if (hls) {
@@ -25,7 +25,7 @@ async function play() {
   try {
     smDaiManager = new SmDaiManager();
     smDaiManager.setManifestUrl(manifestUrl);
-    smDaiManager.setAdsServerUrl(adsServerUrl);
+    smDaiManager.setAdsEndpoint(adsEndpoint);
     smDaiManager.setAdsParams(adsParams);
 
     hls = new Hls();
