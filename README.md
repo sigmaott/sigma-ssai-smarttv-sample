@@ -1,6 +1,6 @@
 # SSAI SDK For SmartTV Integration Guide
 
-**Version** : 1.0.0
+**Version** : 1.0.3
 
 **Organization** : Thủ Đô Multimedia
 
@@ -11,9 +11,10 @@
 3. [System Requirements](#3-system-requirements)
 4. [SDK Installation](#4-sdk-installation)
 5. [SDK Integration](#5-sdk-integration)
-   - [5.1 HLS Player](#51-hls-player)
-   - [5.2 Event Listener](#52-event-listener)
-   - [5.3 Destroy](#53-destroy)
+   - [5.1 Definition of `sigma.dai` parameters](#51-definition-of-sigmadai-parameters)
+   - [5.2 Integrate SSAI with HLS Player](#52-integrate-ssai-with-hls-player)
+   - [5.3 Event Listener](#53-event-listener)
+   - [5.4 Destroy](#54-destroy)
 6. [Conclusion](#6-conclusion)
 
 ## 1. Introduction
@@ -43,7 +44,32 @@ To install the SSAI SDK, follow these steps:
 
 ## 5. SDK Integration
 
-### 5.1 HLS player
+### 5.1 Definition of `sigma.dai` parameters
+
+The `sigma.dai` parameters are used to send information to the **ads server** via the **query string** of the `MANIFEST_URL`. These parameters help customize and enable server-side ad insertion (SSAI) features.
+
+#### Syntax:
+
+```javascript
+sigma.dai.<param>=<value>
+```
+
+Parameters are appended to the `MANIFEST_URL` as key-value pairs prefixed with `sigma.dai`.
+
+#### Required Parameters
+
+- **`sigma.dai.adsEndpoint`**  
+  This parameter specifies the adsEndpoint of the **ads server**. It is mandatory to include this parameter for the SSAI functionality.
+
+  **Example**: MANIFEST_URL=https://stream.example.com/master.m3u8?sigma.dai.adsEndpoint=ADS_ENDPOINT
+
+#### Optional Parameters
+
+Additional parameters can be included to personalize the request or provide extra context to the ads server.
+
+- **Examples**: https://stream.example.com/master.m3u8?sigma.dai.adsEndpoint=ADS_ENDPOINT&sigma.dai.param1=12345&sigma.dai.param2=abcde
+
+### 5.2 Integrate SSAI with HLS Player
 
 - Install Hls
 
@@ -62,9 +88,7 @@ hls.attachMedia(document.getElementById(VIDEO_ELEMENT_ID));
 
 ```javascript
 const smDaiManager = new SmDaiManager();
-smDaiManager.setManifestUrl(MANIFEST_URL);
-smDaiManager.setAdsEndpoint(ADS_ENDPOINT); // set endpoint of the ads
-smDaiManager.setAdsParams(ADS_PARAMS); // append query params for ads request
+smDaiManager.setManifestUrl(MANIFEST_URL); // Set the URL with SSAI-related query parameters
 ```
 
 - **Attach hls instance into SSAI SDK instance** :
@@ -79,7 +103,9 @@ smDaiManager.attachHls(hls, Hls);
 hls.loadSource(MANIFEST_URL);
 ```
 
-## 5.2 Event listener
+## 5.3 Event listener
+
+- The `TRACKING` event provides information about ad playback progress and tracking-related data.
 
 ```javascript
 smDaiManager.on(SmDaiManager.Events.TRACKING, (event, data) => {
@@ -87,7 +113,7 @@ smDaiManager.on(SmDaiManager.Events.TRACKING, (event, data) => {
 });
 ```
 
-## 5.3 Destroy
+## 5.4 Destroy
 
 When the SDK instance is no longer needed, call destroy to release resources:
 
@@ -97,12 +123,11 @@ smDaiManager.destroy();
 
 ### NOTE: Please replace the following placeholders in the code:
 
-| Props            | Type   | Description                                                                                 |
-| ---------------- | ------ | ------------------------------------------------------------------------------------------- |
-| MANIFEST_URL     | String | The URL to the HLS Multivariant Playlist (M3U8) file.                                       |
-| VIDEO_ELEMENT_ID | String | The ID of the HTML5 video element where the video stream will be displayed.                 |
-| ADS_ENDPOINT     | String | The end point of the ads                                                                    |
-| ADS_PARAMS       | Object | An object containing key-value pairs to be added as query parameters for the ads server url |
+| Props            | Type   | Description                                                                                |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------ |
+| MANIFEST_URL     | String | The URL to the HLS Multivariant Playlist (M3U8) file, including query parameters for SSAI. |
+| VIDEO_ELEMENT_ID | String | The ID of the HTML5 video element where the video stream will be displayed.                |
+| ADS_ENDPOINT     | String | The end point of the ads                                                                   |
 
 ## 6. Conclusion
 

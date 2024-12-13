@@ -6,8 +6,6 @@ var smDaiManager;
 var hls;
 
 var manifestUrl = MANIFEST_URL;
-var adsEndpoint = ADS_ENDPOINT;
-var adsParams = ADS_PARAMS;
 
 async function stop() {
   if (hls) {
@@ -24,9 +22,7 @@ async function play() {
   await stop();
   try {
     smDaiManager = new SmDaiManager();
-    smDaiManager.setManifestUrl(manifestUrl);
-    smDaiManager.setAdsEndpoint(adsEndpoint);
-    smDaiManager.setAdsParams(adsParams);
+    smDaiManager.setManifestUrl(`${manifestUrl}?sigma.dai.adsEndpoint=${ADS_ENDPOINT}`);
 
     hls = new Hls();
     hls.attachMedia(document.getElementById(VIDEO_ELEMENT_ID));
