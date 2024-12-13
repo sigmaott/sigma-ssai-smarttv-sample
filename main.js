@@ -22,7 +22,7 @@ async function play() {
   await stop();
   try {
     smDaiManager = new SmDaiManager();
-    smDaiManager.setManifestUrl(`${manifestUrl}?sigma.dai.adsEndpoint=${ADS_ENDPOINT}`);
+    smDaiManager.setManifestUrl(manifestUrl);
 
     hls = new Hls();
     hls.attachMedia(document.getElementById(VIDEO_ELEMENT_ID));
