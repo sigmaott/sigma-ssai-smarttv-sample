@@ -8,18 +8,18 @@ var hls;
 var manifestUrl = MANIFEST_URL;
 
 async function stop() {
-  if (hls) {
-    await hls.destroy();
-    hls = null;
-  }
   if (smDaiManager) {
     smDaiManager.destroy();
     smDaiManager = null;
   }
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
 }
 
 async function play() {
-  await stop();
+  stop();
   try {
     smDaiManager = new SmDaiManager();
     smDaiManager.setManifestUrl(manifestUrl);

@@ -1,6 +1,6 @@
 # SSAI SDK For SmartTV Integration Guide
 
-**Version** : 1.0.3
+**Version** : 1.0.4
 
 **Organization** : Thủ Đô Multimedia
 
